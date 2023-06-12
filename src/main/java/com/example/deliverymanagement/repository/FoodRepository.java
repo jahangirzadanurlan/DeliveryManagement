@@ -1,8 +1,8 @@
 package com.example.deliverymanagement.repository;
 
-import com.example.deliverymanagement.entity.Cart;
+import com.example.deliverymanagement.entity.Food;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface CartRepository extends JpaRepository<Cart,Long> {
+public interface FoodRepository extends JpaRepository<Food,Long> {
 
 }

@@ -1,8 +1,9 @@
 package com.example.deliverymanagement.repository;
 
-import com.example.deliverymanagement.entity.User;
+import com.example.deliverymanagement.entity.Customer;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface UserRepository extends JpaRepository<User,Long> {
+public interface CustomerRepository extends JpaRepository<Customer,Long> {
+    Customer findCustomerByEmail(String email);
 
 }

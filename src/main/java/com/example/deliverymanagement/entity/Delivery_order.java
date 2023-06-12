@@ -12,7 +12,7 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class Order {
+public class Delivery_order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;

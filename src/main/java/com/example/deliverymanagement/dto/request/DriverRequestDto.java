@@ -1,4 +1,4 @@
-package com.example.deliverymanagement.dto.response;
+package com.example.deliverymanagement.dto.request;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -10,6 +10,9 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class ResponseDto {
-    String message;
+public class DriverRequestDto {
+    String name;
+    String email;
+    String password;
+    Boolean isBusy;
 }
