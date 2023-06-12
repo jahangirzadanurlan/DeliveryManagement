@@ -10,8 +10,7 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class DriverResponseDto {
-    String name;
-    String email;
-    String password;
+public class CartResponseDto {
+    Integer count;
+    Double totalAmount;
 }

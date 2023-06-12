@@ -1,4 +1,4 @@
-package com.example.deliverymanagement.dto.response;
+package com.example.deliverymanagement.dto.request;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -10,8 +10,7 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class DriverResponseDto {
-    String name;
-    String email;
-    String password;
+public class CartRequestDto {
+    Integer count;
+    Double totalAmount;
 }

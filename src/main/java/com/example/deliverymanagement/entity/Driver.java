@@ -31,6 +31,8 @@ public class Driver {
     Boolean isBusy=false;
     @Builder.Default
     Boolean isEnabled=false;
+    @Builder.Default
+    Boolean isResetPsw=false;
     @OneToOne
     Customer customer;
 }

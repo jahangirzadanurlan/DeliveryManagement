@@ -1,17 +1,16 @@
 package com.example.deliverymanagement.controller;
 
 import com.example.deliverymanagement.dto.request.CustomerRequestDto;
+import com.example.deliverymanagement.dto.request.FoodRequestDto;
 import com.example.deliverymanagement.dto.response.CustomerResponseDto;
 import com.example.deliverymanagement.dto.response.ResponseDto;
-import com.example.deliverymanagement.entity.ConfirmationToken;
-import com.example.deliverymanagement.entity.Customer;
-import com.example.deliverymanagement.entity.ForgetPasswordToken;
+import com.example.deliverymanagement.entity.*;
+import com.example.deliverymanagement.repository.CartRepository;
 import com.example.deliverymanagement.repository.CustomerRepository;
-import com.example.deliverymanagement.service.ConfirmationTokenService;
-import com.example.deliverymanagement.service.CustomerService;
-import com.example.deliverymanagement.service.EmailSenderService;
-import com.example.deliverymanagement.service.ForgetPasswordTokenService;
+import com.example.deliverymanagement.service.*;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
@@ -24,11 +23,15 @@ import java.util.UUID;
 @RequestMapping("/customers")
 @RequiredArgsConstructor
 public class CustomerController {
+    private final ModelMapper modelMapper;
     private final CustomerService customerService;
     private final EmailSenderService emailSenderService;
     private final ConfirmationTokenService confirmationTokenService;
     private final ForgetPasswordTokenService forgetPasswordTokenService;
     private final CustomerRepository customerRepository;
+    private final CartRepository cartRepository;
+    private final FoodService foodService;
+    private final CartService cartService;
 
     @GetMapping
     public List<CustomerResponseDto> user(){
@@ -102,6 +105,31 @@ public class CustomerController {
             return new ResponseDto("Password changed successfully!");
         }else {
             return new ResponseDto("Customer not found!!!");
+        }
+    }//*********************
+    @PostMapping("/{id}/cart")
+    public ResponseDto addFoodToCart(@PathVariable Long id,@RequestBody FoodRequestDto foodRequestDto){
+        Customer customer=customerRepository.getCustomerById(id);
+        Cart cart=cartRepository.findCartByCustomer(customer);
+        if (cart!=null){
+            cart.getCustomer().getCart().getFoods().add(modelMapper.map(foodRequestDto, Food.class));
+            ResponseDto save = cartService.save(cart);
+            return new ResponseDto("Adding successfull!");
+        }else {
+            return new ResponseDto("Cart not found!!!");
+        }
+
+    }
+    @DeleteMapping("/{id}/cart/{food_id}")
+    public ResponseDto deleteFoodInCart(@PathVariable Long id,@PathVariable Long food_id){
+        Customer customer=customerRepository.getCustomerById(id);
+        Cart cart=cartRepository.findCartByCustomer(customer);
+        if (cart!=null){
+            cart.getCustomer().getCart().getFoods().remove(food_id.intValue()-1);
+            ResponseDto save = cartService.save(cart);
+            return new ResponseDto("Food deleting successfull!");
+        }else {
+            return new ResponseDto("Cart not found!!!");
         }
     }
 

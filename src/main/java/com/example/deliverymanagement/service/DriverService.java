@@ -10,8 +10,9 @@ import java.util.List;
 public interface DriverService {
     ResponseDto save(DriverRequestDto driverRequestDto);
     ResponseDto put(Driver driver);
+    ResponseDto delete(Long id);
     List<DriverResponseDto> getAll();
-    DriverResponseDto getById(Long id);
+    Driver getById(Long id);
     Driver getByEmail(String email);
 
 

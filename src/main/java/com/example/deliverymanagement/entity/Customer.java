@@ -38,8 +38,6 @@ public class Customer {
     @Builder.Default
     Boolean resetEnabled=false;
 
-    @OneToMany
-    List<Food> foods;
     @OneToOne
     Cart cart;
     @OneToMany

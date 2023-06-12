@@ -25,5 +25,7 @@ public class Cart {
     Customer customer;
     @OneToMany
     List<Delivery_order> deliveryorders;
+    @OneToMany
+    List<Food> foods;
 
 }

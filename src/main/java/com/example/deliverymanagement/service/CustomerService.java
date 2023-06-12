@@ -9,8 +9,10 @@ import java.util.List;
 
 public interface CustomerService {
     ResponseDto save(CustomerRequestDto customerRequestDto);
-    List<CustomerResponseDto> getAll();
     ResponseDto put(Customer customer);
+    ResponseDto delete(Long id);
+    List<CustomerResponseDto> getAll();
     Customer findByEmail(String email);
+    CustomerResponseDto findById(Long id);
 
 }

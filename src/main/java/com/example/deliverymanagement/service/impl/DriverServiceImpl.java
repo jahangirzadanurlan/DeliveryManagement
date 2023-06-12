@@ -34,6 +34,17 @@ public class DriverServiceImpl implements DriverService {
     }
 
     @Override
+    public ResponseDto delete(Long id) {
+        Driver driver=driverRepository.getDriverById(id);
+        if (driver!=null){
+            driverRepository.delete(driver);
+            return new ResponseDto("Deleted is successfully!");
+        }else {
+            return new ResponseDto("Driver id is wrong!!!");
+        }
+    }
+
+    @Override
     public List<DriverResponseDto> getAll() {
         return driverRepository.findAll().stream()
                 .map(driver -> modelMapper.map(driver,DriverResponseDto.class))
@@ -41,8 +52,8 @@ public class DriverServiceImpl implements DriverService {
     }
 
     @Override
-    public DriverResponseDto getById(Long id) {
-        return modelMapper.map(driverRepository.getDriverById(id),DriverResponseDto.class);
+    public Driver getById(Long id) {
+        return driverRepository.getDriverById(id);
     }
 
     @Override

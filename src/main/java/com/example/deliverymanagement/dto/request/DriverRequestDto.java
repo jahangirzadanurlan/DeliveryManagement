@@ -14,5 +14,4 @@ public class DriverRequestDto {
     String name;
     String email;
     String password;
-    Boolean isBusy;
 }

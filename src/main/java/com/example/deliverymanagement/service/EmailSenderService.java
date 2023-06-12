@@ -40,7 +40,7 @@ public class EmailSenderService {
         SimpleMailMessage simpleMailMessage=new SimpleMailMessage();
         simpleMailMessage.setTo(driverRequestDto.getEmail());
         simpleMailMessage.setSubject("Confirm account");
-        simpleMailMessage.setText("/drivers/password-resets/"+token.getToken());
+        simpleMailMessage.setText("/drivers/password-reset/"+token.getToken());
 
         mailSender.send(simpleMailMessage);
         log.info("Message sent: "+driverRequestDto);

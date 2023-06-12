@@ -19,7 +19,6 @@ public class Food {
     String name;
     String description;
     Double amount;
-    String image;
 
     @Embedded
     FoodDetails foodDetails;

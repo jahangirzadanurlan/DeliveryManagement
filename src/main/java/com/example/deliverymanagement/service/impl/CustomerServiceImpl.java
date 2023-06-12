@@ -43,6 +43,17 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
+    public ResponseDto delete(Long id) {
+        Customer customer=customerRepository.getCustomerById(id);
+        if (customer!=null){
+            customerRepository.delete(customer);
+            return new ResponseDto("Deleted is successfully!");
+        }else {
+            return new ResponseDto("Id is wrong!!!");
+        }
+    }
+
+    @Override
     public List<CustomerResponseDto> getAll() {
         return null;
     }
@@ -57,5 +68,10 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public Customer findByEmail(String email) {
         return customerRepository.findCustomerByEmail(email);
+    }
+
+    @Override
+    public CustomerResponseDto findById(Long id) {
+        return modelMapper.map(customerRepository.findById(id),CustomerResponseDto.class);
     }
 }
