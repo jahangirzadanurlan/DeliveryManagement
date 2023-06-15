@@ -24,6 +24,7 @@ public class AdminController {
     private final CategoryRepository categoryRepository;
     private final ModelMapper modelMapper;
     private final OrderService orderService;
+    private final StatisticsService statisticsService;
 
     @GetMapping("/drivers")
     public List<DriverResponseDto> getAllDrivers(){
@@ -115,5 +116,10 @@ public class AdminController {
     @GetMapping("/orders/{id}")
     public OrderResponseDto getOrder(@PathVariable Long id){
         return orderService.getById(id);
+    }
+
+    @GetMapping("/dashboard")
+    public StatisticsResponseDto statistics(){
+        return statisticsService.dashboard();
     }
 }

@@ -3,6 +3,7 @@ package com.example.deliverymanagement.service.impl;
 import com.example.deliverymanagement.dto.request.CartRequestDto;
 import com.example.deliverymanagement.dto.response.ResponseDto;
 import com.example.deliverymanagement.entity.Cart;
+import com.example.deliverymanagement.exceptions.CartNotFoundException;
 import com.example.deliverymanagement.repository.CartRepository;
 import com.example.deliverymanagement.service.CartService;
 import lombok.RequiredArgsConstructor;
@@ -18,8 +19,11 @@ public class CartServiceImpl implements CartService {
     @Override
     public ResponseDto save(Cart cart) {
         Cart save = cartRepository.save(cart);
-        return save!=null? new ResponseDto("Save is successfull!"):
-                new ResponseDto("Save is not successfull!!!");
+        if (save!=null){
+            return new ResponseDto("Save is successfull!");
+        }else {
+            throw new CartNotFoundException();
+        }
     }
 
     @Override
@@ -30,7 +34,7 @@ public class CartServiceImpl implements CartService {
         if (save!=null){
             return new ResponseDto("Cart foods deleted!");
         }else {
-            return new ResponseDto("Foods dont delete in cart!");
+            throw new CartNotFoundException();
         }
     }
 

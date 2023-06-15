@@ -10,10 +10,11 @@ import com.example.deliverymanagement.service.CartService;
 import com.example.deliverymanagement.service.DriverService;
 import com.example.deliverymanagement.service.OrderService;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.criterion.Order;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -36,6 +37,7 @@ public class OrderServiceImpl implements OrderService {
         if (order!=null){
             order.setCart(cart);
             order.setCustomer(customer);
+            order.setDate(Date.valueOf(LocalDate.now()));
             Driver driver=driverService.search();
             if (driver!=null){
                 order.setDriver(driver);
@@ -61,12 +63,18 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public OrderResponseDto getById(Long id) {
-        return modelMapper.map(orderRepository.getDelivery_orderById(id),OrderResponseDto.class);
+        Delivery_order order=orderRepository.getDelivery_orderById(id);
+        if (order.getStatus()==1){
+            return modelMapper.map(orderRepository.getDelivery_orderById(id),OrderResponseDto.class);
+        }else {
+            throw new RuntimeException("Order Not found");
+        }
     }
 
     @Override
     public List<OrderResponseDto> getAll() {
         return orderRepository.findAll().stream()
+                .filter(order->order.getStatus()==1)
                 .map(order ->modelMapper.map(order,OrderResponseDto.class))
                 .collect(Collectors.toList());
     }

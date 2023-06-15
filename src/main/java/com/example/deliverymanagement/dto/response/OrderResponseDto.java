@@ -12,5 +12,6 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class OrderResponseDto {
     String place;
+    String cardNumber;
     Integer status;
 }

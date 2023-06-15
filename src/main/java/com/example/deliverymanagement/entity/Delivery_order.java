@@ -6,6 +6,8 @@ import javax.validation.constraints.Size;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
+import java.sql.Date;
+
 @Entity
 @Data
 @Builder
@@ -20,7 +22,8 @@ public class Delivery_order {
     @Size(max = 16,message = "cart must contain 16 character")
     String cardNumber;
     @Builder.Default
-    Integer status=0;
+    Integer status=1;
+    Date date;
 
     @OneToOne
     Driver driver;

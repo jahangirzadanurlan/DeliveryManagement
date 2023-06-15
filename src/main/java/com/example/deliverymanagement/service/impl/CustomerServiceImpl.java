@@ -5,6 +5,7 @@ import com.example.deliverymanagement.dto.response.CustomerResponseDto;
 import com.example.deliverymanagement.dto.response.ResponseDto;
 import com.example.deliverymanagement.entity.ConfirmationToken;
 import com.example.deliverymanagement.entity.Customer;
+import com.example.deliverymanagement.exceptions.CustomerNotFoundException;
 import com.example.deliverymanagement.repository.CustomerRepository;
 import com.example.deliverymanagement.service.ConfirmationTokenService;
 import com.example.deliverymanagement.service.CustomerService;
@@ -39,8 +40,11 @@ public class CustomerServiceImpl implements CustomerService {
         String text="/customers/";
         confirmationTokenService.save(token);
         emailSenderService.sendMail(customerRequestDto,token,text);
-        return save!=null? new ResponseDto("Confirm your account with the email we sent you!"):
-                new ResponseDto("Save is unsuccessfull!");
+        if (save!=null){
+            return new ResponseDto("Save is successfull");
+        }else {
+            throw new CustomerNotFoundException();
+        }
     }
 
     @Override
@@ -50,7 +54,7 @@ public class CustomerServiceImpl implements CustomerService {
             customerRepository.delete(customer);
             return new ResponseDto("Deleted is successfully!");
         }else {
-            return new ResponseDto("Id is wrong!!!");
+            throw new CustomerNotFoundException();
         }
     }
 
@@ -63,9 +67,11 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public ResponseDto put(Customer customer) {
-        return customerRepository.save(customer)!=null?
-                new ResponseDto("Successfull!"):
-                new ResponseDto("unsuccessfull!!!");
+        if (customerRepository.save(customer)!=null){
+            return new ResponseDto("Successfull!");
+        }else {
+            throw new CustomerNotFoundException();
+        }
     }
 
     @Override
