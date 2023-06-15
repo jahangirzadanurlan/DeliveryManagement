@@ -118,7 +118,7 @@ public class CustomerController {
         }else {
             return new ResponseDto("Customer not found!!!");
         }
-    }//*********************
+    }
     @GetMapping("/foods")
     public List<FoodResponseDto> allFoods(){
         return foodService.foods();

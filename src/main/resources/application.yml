@@ -6,6 +6,8 @@ spring:
     url: jdbc:postgresql://localhost:5432/delivery_manegement
   jpa:
     show-sql: true
+    hibernate:
+      ddl-auto: update
   mail:
     host: smtp.gmail.com
     port: 587
