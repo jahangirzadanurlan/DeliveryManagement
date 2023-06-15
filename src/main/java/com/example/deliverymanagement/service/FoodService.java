@@ -7,7 +7,7 @@ import com.example.deliverymanagement.dto.response.ResponseDto;
 import java.util.List;
 
 public interface FoodService {
-    ResponseDto save(FoodRequestDto foodRequestDto);
+    ResponseDto save(Long cat_id,FoodRequestDto foodRequestDto);
     ResponseDto put(Long id,FoodRequestDto foodRequestDto);
     ResponseDto delete(Long id);
     FoodResponseDto getById(Long id);

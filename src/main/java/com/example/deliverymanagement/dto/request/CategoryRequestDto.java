@@ -1,6 +1,5 @@
 package com.example.deliverymanagement.dto.request;
 
-import com.example.deliverymanagement.entity.Food;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,9 +10,7 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class FoodRequestDto {
+public class CategoryRequestDto {
     String name;
     String description;
-    Double amount;
-    Integer calorie;
 }

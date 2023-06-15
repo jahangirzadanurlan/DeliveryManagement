@@ -1,14 +1,14 @@
 package com.example.deliverymanagement.entity;
 
 import javax.persistence.*;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import javax.validation.constraints.Size;
+
+import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 @Entity
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -17,11 +17,16 @@ public class Delivery_order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
     String place;
-    Integer status;
+    @Size(max = 16,message = "cart must contain 16 character")
+    String cardNumber;
+    @Builder.Default
+    Integer status=0;
 
     @OneToOne
     Driver driver;
     @ManyToOne
     Cart cart;
+    @ManyToOne
+    Customer customer;
 
 }

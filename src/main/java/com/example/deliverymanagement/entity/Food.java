@@ -1,10 +1,8 @@
 package com.example.deliverymanagement.entity;
 
 import javax.persistence.*;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+
+import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 @Entity
@@ -25,5 +23,8 @@ public class Food {
 
     @ManyToOne
     Category category;
+    @ManyToOne
+    @ToString.Exclude
+    Cart cart;
 
 }

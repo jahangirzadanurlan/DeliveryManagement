@@ -14,4 +14,5 @@ public class FoodResponseDto {
     String name;
     String description;
     Double amount;
+    Integer calorie;
 }

@@ -21,4 +21,18 @@ public class CartServiceImpl implements CartService {
         return save!=null? new ResponseDto("Save is successfull!"):
                 new ResponseDto("Save is not successfull!!!");
     }
+
+    @Override
+    public ResponseDto deleteFoodsInCart(Long id) {
+       Cart cart= cartRepository.findCartByCustomerId(id);
+       cart.getFoods().clear();
+        Cart save = cartRepository.save(cart);
+        if (save!=null){
+            return new ResponseDto("Cart foods deleted!");
+        }else {
+            return new ResponseDto("Foods dont delete in cart!");
+        }
+    }
+
+
 }

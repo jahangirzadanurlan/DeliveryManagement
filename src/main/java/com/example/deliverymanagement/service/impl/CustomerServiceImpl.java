@@ -17,6 +17,7 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -55,7 +56,9 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public List<CustomerResponseDto> getAll() {
-        return null;
+        return customerRepository.findAll().stream()
+                .map(customer -> modelMapper.map(customer,CustomerResponseDto.class))
+                .collect(Collectors.toList());
     }
 
     @Override

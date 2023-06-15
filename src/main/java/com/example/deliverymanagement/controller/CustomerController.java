@@ -1,16 +1,17 @@
 package com.example.deliverymanagement.controller;
 
 import com.example.deliverymanagement.dto.request.CustomerRequestDto;
-import com.example.deliverymanagement.dto.request.FoodRequestDto;
+import com.example.deliverymanagement.dto.request.OrderRequestDto;
 import com.example.deliverymanagement.dto.response.CustomerResponseDto;
+import com.example.deliverymanagement.dto.response.FoodResponseDto;
 import com.example.deliverymanagement.dto.response.ResponseDto;
 import com.example.deliverymanagement.entity.*;
 import com.example.deliverymanagement.repository.CartRepository;
 import com.example.deliverymanagement.repository.CustomerRepository;
+import com.example.deliverymanagement.repository.FoodRepository;
 import com.example.deliverymanagement.service.*;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
@@ -18,6 +19,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/customers")
@@ -32,6 +34,8 @@ public class CustomerController {
     private final CartRepository cartRepository;
     private final FoodService foodService;
     private final CartService cartService;
+    private final FoodRepository foodRepository;
+    private final OrderService orderService;
 
     @GetMapping
     public List<CustomerResponseDto> user(){
@@ -40,7 +44,15 @@ public class CustomerController {
 
     @PostMapping
     public ResponseDto saveCustomer(@RequestBody CustomerRequestDto customerRequestDto){
-        return customerService.save(customerRequestDto);
+        customerService.save(customerRequestDto);
+        Customer customer=customerService.findByEmail(customerRequestDto.getEmail());
+        Cart cart=Cart.builder()
+                .customer(customer)
+                .build();
+        cartService.save(cart);
+        customer.setCart(cart);
+        customerService.put(customer);
+        return new ResponseDto("Save is successfully!");
     }
     @GetMapping("/{uuid}")
     public ResponseDto confirmCustomer(@PathVariable UUID uuid){
@@ -107,30 +119,61 @@ public class CustomerController {
             return new ResponseDto("Customer not found!!!");
         }
     }//*********************
-    @PostMapping("/{id}/cart")
-    public ResponseDto addFoodToCart(@PathVariable Long id,@RequestBody FoodRequestDto foodRequestDto){
+    @GetMapping("/foods")
+    public List<FoodResponseDto> allFoods(){
+        return foodService.foods();
+    }
+    @GetMapping("/foods/{id}")
+    public FoodResponseDto getFood(@PathVariable Long id){
+        return foodService.getById(id);
+    }
+    @GetMapping("/{id}/foods/cart")
+    public List<FoodResponseDto> allCartFoods(@PathVariable Long id){
         Customer customer=customerRepository.getCustomerById(id);
         Cart cart=cartRepository.findCartByCustomer(customer);
         if (cart!=null){
-            cart.getCustomer().getCart().getFoods().add(modelMapper.map(foodRequestDto, Food.class));
-            ResponseDto save = cartService.save(cart);
-            return new ResponseDto("Adding successfull!");
+            return cart.getFoods().stream()
+                    .map(food -> modelMapper.map(food,FoodResponseDto.class))
+                    .collect(Collectors.toList());
         }else {
-            return new ResponseDto("Cart not found!!!");
+            throw new RuntimeException("Cart is not found");
+        }
+
+    }
+
+    @PostMapping("/{id}/foods/{food_id}/cart")
+    public ResponseDto addFoodToCart(@PathVariable Long id,@PathVariable Long food_id){
+        Cart cart = cartRepository.findCartByCustomerId(id);
+        Food food = foodRepository.getFoodById(food_id);
+        food.setCart(cart);
+        foodRepository.save(food);
+        if (cart != null) {
+            cart.getFoods().add(modelMapper.map(food, Food.class));
+            int foodCount = cart.getCount()+1;
+            Double totalAmount = cart.getTotalAmount()+food.getAmount();
+
+            cart.setCount(foodCount);
+            cart.setTotalAmount(totalAmount);
+            cartService.save(cart);
+            return new ResponseDto("Adding successful!");
+        } else {
+            return new ResponseDto("Cart not found!");
         }
 
     }
     @DeleteMapping("/{id}/cart/{food_id}")
     public ResponseDto deleteFoodInCart(@PathVariable Long id,@PathVariable Long food_id){
-        Customer customer=customerRepository.getCustomerById(id);
-        Cart cart=cartRepository.findCartByCustomer(customer);
-        if (cart!=null){
-            cart.getCustomer().getCart().getFoods().remove(food_id.intValue()-1);
-            ResponseDto save = cartService.save(cart);
-            return new ResponseDto("Food deleting successfull!");
-        }else {
-            return new ResponseDto("Cart not found!!!");
-        }
+        foodService.delete(food_id);
+        return new ResponseDto("Food deleting successfull!");
     }
+
+    @PostMapping("/{id}/cart/checkout")
+    public void checkout(@PathVariable Long id, @RequestBody OrderRequestDto orderRequestDto){
+        Customer customer=customerRepository.getCustomerById(id);
+        Cart cart = cartRepository.findCartByCustomerId(id);
+        orderService.save(cart,customer,orderRequestDto);
+    }
+
+
 
 }

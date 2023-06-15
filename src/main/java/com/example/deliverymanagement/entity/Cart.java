@@ -1,15 +1,14 @@
 package com.example.deliverymanagement.entity;
 
 import javax.persistence.*;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+
+import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.util.List;
 
 @Entity
+@Builder
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -18,14 +17,16 @@ public class Cart {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
-    Integer count;
-    Double totalAmount;
+    @Builder.Default
+    Integer count=0;
+    @Builder.Default
+    Double totalAmount=0.0;
 
     @OneToOne
     Customer customer;
     @OneToMany
     List<Delivery_order> deliveryorders;
-    @OneToMany
+    @OneToMany(mappedBy = "cart",cascade = CascadeType.ALL)
     List<Food> foods;
 
 }

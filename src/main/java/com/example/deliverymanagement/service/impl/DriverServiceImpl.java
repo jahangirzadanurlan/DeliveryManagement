@@ -60,4 +60,16 @@ public class DriverServiceImpl implements DriverService {
     public Driver getByEmail(String email) {
         return driverRepository.getDriverByEmail(email);
     }
+
+    @Override
+    public Driver search() {
+        List<Driver> drivers=driverRepository.findAll();
+        Driver driver=drivers.stream()
+                .filter(driver1 -> !driver1.getIsBusy())
+                .findFirst()
+                .orElse(null);
+        driver.setIsBusy(true);
+        driverRepository.save(driver);
+        return driver;
+    }
 }

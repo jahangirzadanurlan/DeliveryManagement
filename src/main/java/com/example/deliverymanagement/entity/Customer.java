@@ -7,6 +7,7 @@ import javax.validation.constraints.Size;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.hibernate.criterion.Order;
 
 import javax.persistence.Entity;
 import java.util.List;
@@ -38,10 +39,15 @@ public class Customer {
     @Builder.Default
     Boolean resetEnabled=false;
 
-    @OneToOne
+    @OneToOne(mappedBy = "customer",fetch = FetchType.LAZY)
+    @ToString.Exclude
     Cart cart;
+
     @OneToMany
     List<Role> roles;
+
+    @OneToMany(mappedBy = "customer",fetch = FetchType.LAZY)
+    List<Delivery_order> orders;
 
 
 }

@@ -5,4 +5,5 @@ import com.example.deliverymanagement.entity.Cart;
 
 public interface CartService {
     ResponseDto save(Cart cart);
+    ResponseDto deleteFoodsInCart(Long id);
 }

@@ -3,7 +3,9 @@ package com.example.deliverymanagement.service.impl;
 import com.example.deliverymanagement.dto.request.FoodRequestDto;
 import com.example.deliverymanagement.dto.response.FoodResponseDto;
 import com.example.deliverymanagement.dto.response.ResponseDto;
+import com.example.deliverymanagement.entity.Category;
 import com.example.deliverymanagement.entity.Food;
+import com.example.deliverymanagement.repository.CategoryRepository;
 import com.example.deliverymanagement.repository.FoodRepository;
 import com.example.deliverymanagement.service.FoodService;
 import lombok.RequiredArgsConstructor;
@@ -17,13 +19,20 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class FoodServiceImpl implements FoodService {
     private final FoodRepository foodRepository;
+    private final CategoryRepository categoryRepository;
     private final ModelMapper modelMapper;
 
     @Override
-    public ResponseDto save(FoodRequestDto foodRequestDto) {
-        Food save = foodRepository.save(modelMapper.map(foodRequestDto, Food.class));
-        return save!=null?new ResponseDto("Save is successfully!"):
-                new ResponseDto("Save is unsuccessfully!!!");
+    public ResponseDto save(Long cat_id,FoodRequestDto foodRequestDto) {
+        Food food = modelMapper.map(foodRequestDto, Food.class);
+        Category category = categoryRepository.findById(cat_id).orElse(null);
+        if (category != null) {
+            food.setCategory(category);
+            foodRepository.save(food);
+            return new ResponseDto("Save is successful!");
+        } else {
+            return new ResponseDto("Save is unsuccessful!");
+        }
     }
 
     @Override

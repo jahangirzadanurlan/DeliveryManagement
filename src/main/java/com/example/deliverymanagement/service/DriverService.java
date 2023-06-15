@@ -14,6 +14,7 @@ public interface DriverService {
     List<DriverResponseDto> getAll();
     Driver getById(Long id);
     Driver getByEmail(String email);
+    Driver search();
 
 
 }
