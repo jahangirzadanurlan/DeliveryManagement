@@ -6,11 +6,6 @@ Delivery-management
 Building 187C, 115 Heydar Aliyev Ave, Baku 1029  055 032 77 78
 deliverymanagement@gmail.com  www.deliverymanagement.com
 
-
-Div students
-Basic project for exam
-
-
 SCenario
 
 Delivery Management System
