@@ -1,8 +1,5 @@
 # Delivery Management
-![Untitled Diagram drawio (6)](https://github.com/jahangirzadanurlan/DeliveryManagement/assets/103985861/58c7e799-f4b4-44f9-a92a-1fa2211dd12e)
 
-
-	
 Delivery-management
 Building 187C, 115 Heydar Aliyev Ave, Baku 1029  055 032 77 78
 deliverymanagement@gmail.com  www.deliverymanagement.com
@@ -15,9 +12,9 @@ Mövcud problemlər
 
 Günümüz də insanlar, bəzi ehtiyacları və ya tələbatları üçün məhsulu ünvanlarına sifariş etmək istəyirlər. Bu zaman onlara ehtiyac olan əsas əlaqə vasitəsi olur. Hər hansı əlaqə vasitəsi tapdığdan sonra sifarişi verib tamamlayır. Amma, müştəri sifarişin hazır olub olmadığını, yola çıxıb çıxmadığını və s. kimi detalları izləyə bilmir. Və bunun üçün müəyyən çətinlik yaşayır.
 
-Problemin həllinin təsviri
+![Untitled Diagram drawio (6)](https://github.com/jahangirzadanurlan/DeliveryManagement/assets/103985861/58c7e799-f4b4-44f9-a92a-1fa2211dd12e)
 
- 
+Problemin həllinin təsviri
 
 Çatdırılma proqramı yaradarağ, insanların sifarişini istəyə uyğun nəğd və ya nəğdsiz ödəmə imkanına sahib olur. Və həmçinin sifarişi rahatlığla izləyə bilir. 
 
