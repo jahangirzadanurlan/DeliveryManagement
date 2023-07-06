@@ -1,5 +1,6 @@
-# delivery-management
-![Untitled Diagram drawio (6)](https://github.com/jahangirzadanurlan/delivery-management/assets/103985861/78338bf7-7ed9-46fb-aae3-007b02f4906c)
+# Delivery Management
+![Untitled Diagram drawio (6)](https://github.com/jahangirzadanurlan/DeliveryManagement/assets/103985861/58c7e799-f4b4-44f9-a92a-1fa2211dd12e)
+
 
 	
 Delivery-management
