@@ -4,6 +4,38 @@ Delivery-management
 Building 187C, 115 Heydar Aliyev Ave, Baku 1029  055 032 77 78
 deliverymanagement@gmail.com  www.deliverymanagement.com
 
+🚚 Delivery Management System 🚚
+
+Welcome to the Delivery Management System project! Our cutting-edge solution aims to revolutionize the way people handle product deliveries and ensure a seamless experience for customers, drivers, and administrators alike. With intuitive interfaces, real-time order tracking, and email notifications, we bring efficiency and convenience to the delivery process.
+
+🌟 Key Features:
+
+📦 Customer Panel:
+- Browse a wide range of products and enjoy the convenience of search functionality.
+- Easily manage your account and access personal information securely.
+- Add, remove, and update product quantities in your cart effortlessly.
+- Get instant order total and complete the order placement process with a single click.
+- Track your orders in real-time and receive status updates via email.
+
+🚘 Driver Panel:
+- Stay organized with a comprehensive view of your assigned orders.
+- Update the status of your deliveries on-the-go, ensuring timely and accurate tracking.
+- Collaborate seamlessly with customers and administrators for smooth order management.
+
+👨‍💼 Admin Panel:
+- Effortlessly manage products, including adding, updating, and removing items under specific categories.
+- Maintain an up-to-date database of drivers and customers.
+- Monitor orders, ensuring efficient coordination between customers and drivers.
+- Gain valuable insights with comprehensive statistics on income and order data.
+
+🔒 Authentication & Security:
+- Register securely with email verification for added account protection.
+- Reset your password conveniently through the forget password option.
+
+📧 Email Notifications:
+- Keep users informed with real-time email notifications for critical operations, ensuring a smooth and transparent experience.
+
+
 SCenario
 
 Delivery Management System
