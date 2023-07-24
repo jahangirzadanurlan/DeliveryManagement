@@ -28,10 +28,6 @@ Welcome to the Delivery Management System project! Our cutting-edge solution aim
 - Monitor orders, ensuring efficient coordination between customers and drivers.
 - Gain valuable insights with comprehensive statistics on income and order data.
 
-🔒 Authentication & Security:
-- Register securely with email verification for added account protection.
-- Reset your password conveniently through the forget password option.
-
 📧 Email Notifications:
 - Keep users informed with real-time email notifications for critical operations, ensuring a smooth and transparent experience.
 
